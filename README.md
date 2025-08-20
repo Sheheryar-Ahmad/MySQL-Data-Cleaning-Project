@@ -19,9 +19,3 @@ The main objective is to prepare the data for analysis by removing duplicates, h
 
 ## 🛠 Tools & Skills Used  
 - **MySQL Workbench**  
-
-
----
-
-DELETE FROM layoffs_staging3
-WHERE ROW_NUM = 2;
