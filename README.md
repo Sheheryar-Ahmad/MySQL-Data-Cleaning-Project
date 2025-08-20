@@ -17,5 +17,5 @@ The main objective is to prepare the data for analysis by removing duplicates, h
 
 ---
 
-## 🛠 Tools & Skills Used  
+## 🛠 Tools Used  
 - **MySQL Workbench**  
