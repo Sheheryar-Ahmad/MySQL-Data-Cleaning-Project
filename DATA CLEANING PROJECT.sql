@@ -152,12 +152,60 @@ FROM layoffs_staging3;
 ALTER TABLE layoffs_staging3
 MODIFY COLUMN `date` DATE;
 
+SELECT *
+FROM layoffs_staging3;
 
 
 
+-- we should set the blanks to nulls since those are typically easier to work with
+UPDATE layoffs_staging3
+SET industry = NULL
+WHERE industry = '';
+
+-- now if we check those are all null
+
+SELECT *
+FROM layoffs_staging3
+WHERE industry IS NULL 
+OR industry = ''
+ORDER BY industry;
+
+-- now we need to populate those nulls if possible
+
+UPDATE layoffs_staging3 t1
+JOIN layoffs_staging3 t2
+ON t1.company = t2.company
+SET t1.industry = t2.industry
+WHERE t1.industry IS NULL
+AND t2.industry IS NOT NULL;
 
 
+-- 4. remove any columns and rows we need to
 
+SELECT *
+FROM layoffs_staging3
+WHERE total_laid_off IS NULL;
+
+
+SELECT *
+FROM layoffs_staging3
+WHERE total_laid_off IS NULL
+AND percentage_laid_off IS NULL;
+
+-- Delete Useless data we can't really use
+DELETE FROM layoffs_staging3
+WHERE total_laid_off IS NULL
+AND percentage_laid_off IS NULL;
+
+SELECT * 
+FROM layoffs_staging3;
+
+ALTER TABLE layoffs_staging3
+DROP COLUMN row_num;
+
+
+SELECT * 
+FROM layoffs_staging3;
 
 
 
